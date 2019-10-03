@@ -9,8 +9,7 @@ namespace Polynomial
         public List<double> Coefficients { get; }
         public double Function (double number)
         {
-            try
-            {
+            
                 if (this == null) throw new ArgumentNullException("This polynomial is empty");
                 else
                 {
@@ -21,23 +20,10 @@ namespace Polynomial
                     }
                     return result;
                 }
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return 0;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Couldn't calculate function result");
-                return 0;
-            }
         }
         public object Clone() => new Polynomial(this.Coefficients);
         public override string ToString()
         {
-            try
-            {
                 if (this == null)
                 {
                     throw new ArgumentNullException("This polynomial is empty");
@@ -63,24 +49,10 @@ namespace Polynomial
 
                     return sb.ToString();
                 }
-                
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex);
-                return null;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Couldn't convert to string");
-                return null;
-            }
         }
         public bool Equals(Polynomial other)
         {
-            try
-            {
-                if (other.Coefficients.Count != this.Coefficients.Count)
+               if (other.Coefficients.Count != this.Coefficients.Count)
                 {
                     return false;
                 }
@@ -95,12 +67,7 @@ namespace Polynomial
                     }
                 }
                 return true;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Can't compare this polynomials");
-                return false;
-            }
+           
         }
         public Polynomial(List<double> coef)
         {
@@ -120,8 +87,6 @@ namespace Polynomial
         public int Degree => Coefficients.Count - 1;
         public static Polynomial operator +(Polynomial left, Polynomial right)
         {
-            try
-            {
                 if (left == null || right == null)
                 {
                     throw new ArgumentNullException("One or both Polynomials are empty");
@@ -154,22 +119,10 @@ namespace Polynomial
                         return new Polynomial(result);
                     }
                 }
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-            catch(Exception)
-            {
-                Console.WriteLine("Couldn't add polynomials");
-                return null;
-            }
+            
         }
         public static Polynomial operator -(Polynomial left, Polynomial right)
         {
-            try
-            {
                 if (left == null || right == null)
                 {
                     throw new ArgumentNullException("One or both polynomials are empty");
@@ -202,82 +155,27 @@ namespace Polynomial
                         return new Polynomial(result);
                     }
                 }
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Couldn't substract polynomial");
-                return null;
-            }
         }
-        public static Polynomial operator *(Polynomial left, int number)
+        public static Polynomial operator *(Polynomial left, object number)
         {
-            try
-            {
-                if (left == null)
+            if (left == null)
                 {
                     throw new ArgumentNullException("The polynomial is empty");
                 }
                 else
                 {
+                    double numb = (double)number;
                     List<double> result = new List<double>();
                     for (int i = 0; i <= left.Degree; i++)
                         {
-                            result.Add(left[i] * number);
+                            result.Add(left[i] * numb);
                         }
                     return new Polynomial(result);
                 }
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Couldn't multiply polynomial by number");
-                return null;
-            }
         }
-        public static Polynomial operator *(int number, Polynomial left) => left * number;
-        public static Polynomial operator *(Polynomial left, double number)
-        {
-            try
-            {
-                if (left == null)
-                {
-                    throw new ArgumentNullException("The polynomial is empty");
-                }
-                else
-                {
-                    List<double> result = new List<double>();
-                    for (int i = 0; i <= left.Degree; i++)
-                    {
-                        result.Add(left[i] * number);
-                    }
-                    return new Polynomial(result);
-                }
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Couldn't multiply polynomial by number");
-                return null;
-            }
-        }
-        public static Polynomial operator *(double number, Polynomial left) => left * number;
+        public static Polynomial operator *(object number, Polynomial left) => left * number;
         public static Polynomial operator *(Polynomial left, Polynomial right)
         {
-            try
-            {
                 if (left == null || right == null)
                 {
                     throw new ArgumentNullException("One or both Polynomials are empty");
@@ -300,16 +198,6 @@ namespace Polynomial
                     return new Polynomial(result);
                 }
             }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return null;
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Couldn't multiply polynomials");
-                return null;
-            }
-        }
+            
     }
 }
